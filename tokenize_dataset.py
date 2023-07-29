@@ -5,6 +5,7 @@ from tqdm import tqdm
 import datasets
 import transformers
 
+glm_model = "model/glm"
 
 def preprocess(tokenizer, config, example, max_seq_length):
     prompt = example["context"]
@@ -20,11 +21,11 @@ def preprocess(tokenizer, config, example, max_seq_length):
 
 
 def read_jsonl(path, max_seq_length, skip_overlength=False):
-    model_name = "THUDM/chatglm-6b"
+    model_name = glm_model
     tokenizer = transformers.AutoTokenizer.from_pretrained(
-        model_name, trust_remote_code=True)
+        model_name,local_files_only=True,trust_remote_code=True,device_map='auto')
     config = transformers.AutoConfig.from_pretrained(
-        model_name, trust_remote_code=True, device_map='auto')
+        model_name,local_files_only=True,trust_remote_code=True,cache_dir=None, device_map='auto')
     with open(path, "r") as f:
         for line in tqdm(f.readlines()):
             example = json.loads(line)

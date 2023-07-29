@@ -13,10 +13,12 @@ from peft import get_peft_model, LoraConfig, TaskType
 from utils import CastOutputToFloat, get_data_collator
 from training_arguments import MyTrainingArguments, MyTrainer
 
+glm_path = "model/glm"
+
 def build_model(training_args):
     print("#> Building model...")
     model = AutoModel.from_pretrained(
-        "THUDM/chatglm-6b", load_in_8bit=True, trust_remote_code=True, device_map="auto"
+        glm_path, load_in_8bit=True, trust_remote_code=True, device_map="auto"
     )
     model.gradient_checkpointing_enable()
     model.enable_input_require_grads()
@@ -56,7 +58,7 @@ def main():
     dataset = datasets.load_from_disk(training_args.dataset_path)
     dataset.set_format(
         type=dataset.format["type"],
-        columns=list(dataset.features.keys()),
+        columns=list(dataset.features.eys()),
     )
 
     print("#> Dataset loaded.", "Total samples:", len(dataset), "\n")
@@ -64,7 +66,7 @@ def main():
     # build model
     
     model = build_model(training_args)
-    tokenizer = AutoTokenizer.from_pretrained("THUDM/chatglm-6b", trust_remote_code=True)
+    tokenizer = AutoTokenizer.from_pretrained(glm_path, trust_remote_code=True)
 
     print("#> Start training...")
     # start train

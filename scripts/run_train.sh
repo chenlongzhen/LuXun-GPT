@@ -1,6 +1,6 @@
-CUDA_VISIBLE_DEVICES=0,1 \
+CUDA_VISIBLE_DEVICES=0 \
 python ../lora_finetune.py \
-    --dataset_path ../example_data/luxun_dataset \
+    --dataset_path ../example_data/fin_dataset \
     --lora_rank 8 \
     --per_device_train_batch_size 4 \
     --gradient_accumulation_steps 2 \
