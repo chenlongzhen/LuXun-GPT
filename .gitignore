@@ -130,3 +130,5 @@ dmypy.json
 /example_data/
 /model/
 /test_data/
+/saved_models/
+

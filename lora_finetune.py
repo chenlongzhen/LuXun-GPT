@@ -24,7 +24,7 @@ def build_model(training_args):
     model.enable_input_require_grads()
     model.is_parallelizable = True
     model.model_parallel = True
-    model.lm_head = CastOutputToFloat(model.lm_head)
+    model.lm_head = CastOutputToFloat(model.transformer.output_layer)
     model.config.use_cache = (
         False  # silence the warnings. Please re-enable for inference!
     )
@@ -58,7 +58,7 @@ def main():
     dataset = datasets.load_from_disk(training_args.dataset_path)
     dataset.set_format(
         type=dataset.format["type"],
-        columns=list(dataset.features.eys()),
+        columns=list(dataset.features.keys()),
     )
 
     print("#> Dataset loaded.", "Total samples:", len(dataset), "\n")
@@ -66,7 +66,7 @@ def main():
     # build model
     
     model = build_model(training_args)
-    tokenizer = AutoTokenizer.from_pretrained(glm_path, trust_remote_code=True)
+    tokenizer = AutoTokenizer.from_pretrained(glm_path, local_files_only=True,trust_remote_code=True,device_map='auto')
 
     print("#> Start training...")
     # start train
