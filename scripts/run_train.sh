@@ -4,12 +4,14 @@ cd ..
 python ./lora_finetune.py \
     --dataset_path ./example_data/fin_dataset \
     --lora_rank 8 \
-    --per_device_train_batch_size 4 \
-    --gradient_accumulation_steps 2 \
-    --max_steps 5000 \
-    --save_steps 1000 \
-    --learning_rate 1e-4 \
+    --per_device_train_batch_size 6 \
+    --gradient_accumulation_steps 1 \
+    --max_steps 30000 \
+    --save_steps 5000 \
+    --learning_rate 1e-5 \
     --fp16 \
     --remove_unused_columns false \
     --logging_steps 50 \
-    --output_dir ./saved_models
+    --output_dir ./saved_models_07291911
+
+

@@ -28,8 +28,8 @@ if __name__ == "__main__":
 
     argparser = argparse.ArgumentParser()
     argparser.add_argument("--base_model", type=str, default="model/glm")
-    argparser.add_argument("--lora", type=str, default="model/LuXun-lora")
-    argparser.add_argument("--instruction", type=str, default="用鲁迅风格的语言改写，保持原来的意思：")
+    argparser.add_argument("--lora", type=str, default="/root/autodl-tmp/LuXun-GPT/saved_models")
+    argparser.add_argument("--instruction", type=str, default="您扮演着民生银行信用卡客服的角色，要回应客户提出的问题")
     argparser.add_argument("--input_path", type=str, default="test_data/test.txt")
     argparser.add_argument("--output_path", type=str, default="test_data/test_output_v2.txt")
     argparser.add_argument("--interactive", action="store_true")
